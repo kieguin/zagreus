@@ -9,7 +9,8 @@ class InstagramChecker:
     def __init__(self, Zagreus):
         prettyPrint('info', 'Instagram Checker Loaded.')
         self.Zagreus = Zagreus
-    
+        self.config = Zagreus.config
+
     def login(self, username, password):
 
         # Set the authenticated flag.
@@ -18,7 +19,7 @@ class InstagramChecker:
         # Attempt to load the instagram login page and check for the logged out wordmark.
         try: 
             self.browser.get('https://www.instagram.com/accounts/login/')
-            self.browser.implicitly_wait(2)
+            self.browser.implicitly_wait(self.wait_time)
             self.browser.find_element_by_class_name('coreSpriteLoggedOutWordmark')
         except NoSuchElementException as e:
             prettyPrint('error', 'Something Wen\'t Wrong: ' + e.msg)

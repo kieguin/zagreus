@@ -1,1 +1,3 @@
 .idea/
+client/checkers/__pycache__
+client/utils/__pycache__
