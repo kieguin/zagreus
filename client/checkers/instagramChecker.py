@@ -19,10 +19,10 @@ class InstagramChecker:
         try: 
             self.browser.get('https://www.instagram.com/accounts/login/')
             self.browser.implicitly_wait(2)
-            self.browser.find_element_by_class_name('coreSprteLoggedOutWordmark')
+            self.browser.find_element_by_class_name('coreSpriteLoggedOutWordmark')
         except NoSuchElementException as e:
             prettyPrint('error', 'Something Wen\'t Wrong: ' + e.msg)
-            prettyPrint('stack', 'StackTrace: ' + str(e.stacktrace))
+            prettyPrint('warning', 'StackTrace: ' + str(e.stacktrace))
             closeBrowserAndExit(self)
 
         # Attempt to find the input fields.
@@ -30,9 +30,8 @@ class InstagramChecker:
             usernameInput = self.browser.find_elements_by_css_selector('form input')[0]
             passwordInput = self.browser.find_elements_by_css_selector('form input')[1]
         except IndexError as e:
-            print(e.msg)
-            self.browser.close()
-            sys.exit()
+            prettyPrint('error', 'Something wen\'t wrong finding the login fields.')
+            closeBrowserAndExit(self)
 
         # Attempt to enter the provided username, password and then press enter.
         try:
@@ -40,23 +39,18 @@ class InstagramChecker:
             passwordInput.send_keys(password)
             passwordInput.send_keys(self.Keys.ENTER)
         except: 
-            print('Something went wrong while entering the users details...')
-            self.browser.close()
-            sys.exit()
+            prettyPrint('error', 'Something wen\'t wrong entering the details provided.')
+            closeBrowserAndExit(self)
 
-        # Simpole check to see if the user has logged in succesffully.
+        # Simple check to see if the user has logged in succesffully.
         try:
-            self.browser.implicitly_wait(3)
-            self.browser.find_element_by_class_name('_47KiJ')
-            Authenticated = True
-        except:
-            self.browser.close()
+            time.sleep(2)
+            self.browser.find_element_by_id('slfErrorAlert')
             Authenticated = False
-            print('Not logged in...')
-            sys.exit()
+            prettyPrint('warning', f"WARNING: {username}:{password} not working!")
+        except NoSuchElementException:
+            Authenticated = True
+            prettyPrint('success', f"SUCCESS: {username}:{password} working!")
+            closeBrowserAndExit(self)
 
-        if Authenticated == True:
-            print('Logged in sucessfully.')
-
-        self.browser.close()
-        sys.exit()
+        closeBrowserAndExit(self)

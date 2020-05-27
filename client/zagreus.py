@@ -30,6 +30,6 @@ class Zagreus:
 
 Zagreus = Zagreus()
 CheckInstagram = InstagramChecker(Zagreus)
-InstagramChecker.login(Zagreus, 'kieran', 'password')
+InstagramChecker.login(Zagreus, '0x51d', 'password')
 # Zagreus.testSelenium()
 time.sleep(5)
