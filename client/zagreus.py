@@ -19,3 +19,8 @@ class Zagreus:
 
     def testSelenium(self):
         self.browser.get('https://zagreus.0x51d.fun')
+        self.browser.implicitly_wait(10)
+
+Zagreus = Zagreus()
+Zagreus.testSelenium()
+time.sleep(5)
