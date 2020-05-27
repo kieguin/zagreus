@@ -24,12 +24,6 @@ class Zagreus:
         self.browser = webdriver.Chrome(options=self.options)
         self.Keys = Keys
 
-    def testSelenium(self):
-        self.browser.get('https://zagreus.0x51d.fun')
-        self.browser.implicitly_wait(10)
-
 Zagreus = Zagreus()
 CheckInstagram = InstagramChecker(Zagreus)
 InstagramChecker.login(Zagreus, '0x51d', 'password')
-# Zagreus.testSelenium()
-time.sleep(5)
