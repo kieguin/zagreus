@@ -11,6 +11,10 @@ import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
+# Import our required utils.
+from utils.pretty_print import prettyPrint
+
+# Import all our checking modules.
 from checkers.instagramChecker import InstagramChecker
 
 class Zagreus:
@@ -26,6 +30,6 @@ class Zagreus:
 
 Zagreus = Zagreus()
 CheckInstagram = InstagramChecker(Zagreus)
-InstagramChecker.login(Zagreus, 'kieran', 'password')
+InstagramChecker.login(Zagreus, '0x51d', 'password')
 # Zagreus.testSelenium()
 time.sleep(5)
