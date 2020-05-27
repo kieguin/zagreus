@@ -1,11 +1,13 @@
 import sys
 import time
 from selenium.common.exceptions import NoSuchElementException
+from utils.pretty_print import prettyPrint
+from utils.helpers import *
 
 class InstagramChecker:
 
     def __init__(self, Zagreus):
-        print('Instagram Checker Class Called Successfully')
+        prettyPrint('info', 'Instagram Checker Loaded.')
         self.Zagreus = Zagreus
     
     def login(self, username, password):
@@ -16,13 +18,12 @@ class InstagramChecker:
         # Attempt to load the instagram login page and check for the logged out wordmark.
         try: 
             self.browser.get('https://www.instagram.com/accounts/login/')
-            self.browser.implicitly_wait(3)
-            self.browser.find_element_by_class_name('coreSpriteLoggedOutWordmark')
-            time.sleep(5)
+            self.browser.implicitly_wait(2)
+            self.browser.find_element_by_class_name('coreSprteLoggedOutWordmark')
         except NoSuchElementException as e:
-            print(e.msg)
-            self.browser.close()
-            sys.exit()
+            prettyPrint('error', 'Something Wen\'t Wrong: ' + e.msg)
+            prettyPrint('stack', 'StackTrace: ' + str(e.stacktrace))
+            closeBrowserAndExit(self)
 
         # Attempt to find the input fields.
         try: 
