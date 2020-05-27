@@ -11,16 +11,21 @@ import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
+from checkers.instagramChecker import InstagramChecker
+
 class Zagreus:
     def __init__(self):
         self.options = webdriver.ChromeOptions()
         self.options.add_argument('window-size=700x570')
         self.browser = webdriver.Chrome(options=self.options)
+        self.Keys = Keys
 
     def testSelenium(self):
         self.browser.get('https://zagreus.0x51d.fun')
         self.browser.implicitly_wait(10)
 
 Zagreus = Zagreus()
-Zagreus.testSelenium()
+CheckInstagram = InstagramChecker(Zagreus)
+InstagramChecker.login(Zagreus, 'kieran', 'password')
+# Zagreus.testSelenium()
 time.sleep(5)
